@@ -21,7 +21,7 @@
     <script>
         const params = new URLSearchParams(window.location.search);
         const id = params.get('id');
-        const WEB_APP_URL = "PASTE_NEW_WEB_APP_URL_HERE";  // We'll get this after new sheet
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxVHJPq92Jxr5FzKsPMbZpZTF5rDwNafSJa6-4ptWvTOwfmTprkSyno-11BtILdXOk/exec";  // We'll get this after new sheet
 
         fetch(WEB_APP_URL + "?id=" + encodeURIComponent(id) + "&t=" + new Date().getTime())
           .then(response => response.json())
