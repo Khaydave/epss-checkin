@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Participant Verification</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 30px; background: #f4f4f4; text-align: center; }
+        .card { max-width: 500px; margin: 20px auto; padding: 30px; background: white; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        h1 { color: #333; }
+        button { padding: 15px 30px; font-size: 18px; background: #28a745; color: white; border: none; border-radius: 8px; cursor: pointer; margin-top: 20px; }
+        button:hover { background: #218838; }
+        .info p { font-size: 18px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>Event Check-in Verification</h1>
+    <div class="card" id="info">Loading participant details...</div>
+    <button onclick="markCheckedIn()">✅ Mark as Checked-In</button>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+        const WEB_APP_URL = "PASTE_NEW_WEB_APP_URL_HERE";  // We'll get this after new sheet
+
+        fetch(WEB_APP_URL + "?id=" + encodeURIComponent(id) + "&t=" + new Date().getTime())
+          .then(response => response.json())
+          .then(data => {
+            document.getElementById('info').innerHTML = `
+              <h2>${data.name || 'Not Found'}</h2>
+              <p><strong>Gender:</strong> ${data.gender || ''}</p>
+              <p><strong>Phone:</strong> ${data.phone || ''}</p>
+              <p><strong>Organisation:</strong> ${data.org || ''}</p>
+              <p><strong>ID:</strong> ${data.id || id}</p>
+            `;
+          })
+          .catch(err => {
+            document.getElementById('info').innerHTML = `<p>Error loading data. Try again.</p>`;
+          });
+
+        function markCheckedIn() {
+          alert("✅ Checked-In!");
+        }
+    </script>
+</body>
+</html>
